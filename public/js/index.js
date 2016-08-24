@@ -34,7 +34,7 @@ $(document).ready(function() {
         })
       }
       
-    } else if($(this).attr('id') === 'login') {
+    } else if($(this).attr('id') === 'signin') {
       var formFieldIds = ['email', 'password'];
       var data = global.getFormData(formFieldIds);
       var responseDom = $(this).parents('form').siblings('.message');
@@ -42,8 +42,11 @@ $(document).ready(function() {
         responseDom.text('All fields are compulsory').css('color', '#f00');
       } else {
         var apiresponse = global.customAjax('POST', data, 'api/login', $(this));
-        res.done(function(reply) {
-          //alert(reply);
+        apiresponse.done(function(reply) {
+          if(reply == 3) responseDom.text('Invalid email').css('color', '#f00');
+          else if(reply == 2) responseDom.text('Incorrect password').css('color', '#f00');
+          else if(reply == 0) responseDom.text('An error occurred').css('color', '#f00');
+          else if(reply == 1) responseDom.text('Login successfull').css('color', 'green');
         })
       }
     }

@@ -12,9 +12,8 @@ var db = new DBController();
 var UserController = function() {
   this.login = function(req, res) {
     var data = req.body;
-    
     details = {'email':data.email, 'password':data.password};
-    //db.login('users', details, res);
+    db.login(details, res);
   }
 
   this.register = function(req, res) {
