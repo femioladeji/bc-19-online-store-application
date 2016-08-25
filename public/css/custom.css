@@ -55,3 +55,10 @@ body{
 .back {
   transform: rotateY(180deg);
 }
+.progress{
+  width:40px;
+  margin:auto;
+  display: none;
+  height:40px;
+  background:#fff;
+}
