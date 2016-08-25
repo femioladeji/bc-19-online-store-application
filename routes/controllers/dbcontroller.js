@@ -1,4 +1,6 @@
 var mysql = require('mysql');
+var jwt = require('jsonwebtoken');
+
 const crypto = require('crypto');
 
 function hash(rawstring, salt) {
@@ -61,17 +63,20 @@ var DBController = function() {
       connection.query(query, function(err, result) {
         if(!err) {
           if(result.length == 0) {
-            response.send('3');
+            response.json({status:false, message:'Invalid email address'});
           } else {
             var hashedPassword = hash(details.password, result[0].salt);
             if (hashedPassword === result[0].password) {
-              response.send('1');
+              var token = jwt.sign({id:result[0].id}, 'secret', {
+                expiresIn: '24h' //expires in 24 hours
+              })
+              response.json({status:true, message:'Login successfull', token:token});
             } else {
-              response.send('2');
+              response.json({status:false, message:'Invalid password'});
             }
           }
         } else {
-          response.send('0');
+          response.json({status:false, message:'An error occurred, please try again'});
         }
         response.end();
       });

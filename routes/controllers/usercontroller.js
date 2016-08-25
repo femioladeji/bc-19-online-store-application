@@ -19,8 +19,8 @@ var UserController = function() {
   this.register = function(req, res) {
     var data = req.body;
     var passwordArray = hash(data.regpassword);
-    fullname = data.fullname.split(' ');
-    details = {'email':data.regemail, 'password':passwordArray[1], 'salt':passwordArray[0], 'firstname':fullname[0], 'lastname':fullname[1]};
+    var fullname = data.fullname.split(' ');
+    var details = {'email':data.regemail, 'password':passwordArray[1], 'salt':passwordArray[0], 'firstname':fullname[0], 'lastname':fullname[1]};
     db.insertToDb('users', details, res);
   }
 }

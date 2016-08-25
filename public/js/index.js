@@ -12,11 +12,12 @@ $(document).ready(function() {
 
   var global = new MyGlobal();
 
-  $('.action').click(function() {
+  $('.action').click(function(e) {
+    e.preventDefault();
+    var responseDom = $(this).parents('form').siblings('.message');
     if($(this).attr('id') === 'register') {
       var formFieldIds = ['fullname', 'regemail', 'regpassword', 'confirmpassword'];
       var data = global.getFormData(formFieldIds);
-      var responseDom = $(this).parents('form').siblings('.message');
       if(data === 'null') {
         responseDom.text('All fields are compulsory').css('color', '#f00');
       } else if(data.confirmpassword !== data.regpassword) {
@@ -28,6 +29,9 @@ $(document).ready(function() {
         apiresponse.done(function(reply) {
           if(reply == 1) {
             responseDom.text('Registration successfull').css('color', 'green');
+            setTimeout(function() {
+              global.loginAction({'email':data.regemail, 'password':data.regpassword}, $(this), responseDom)
+            }, 1000);
           } else {
             responseDom.text('An error occurred').css('color', '#f00');
           }
@@ -37,17 +41,10 @@ $(document).ready(function() {
     } else if($(this).attr('id') === 'signin') {
       var formFieldIds = ['email', 'password'];
       var data = global.getFormData(formFieldIds);
-      var responseDom = $(this).parents('form').siblings('.message');
       if(data === 'null') {
         responseDom.text('All fields are compulsory').css('color', '#f00');
       } else {
-        var apiresponse = global.customAjax('POST', data, 'api/login', $(this));
-        apiresponse.done(function(reply) {
-          if(reply == 3) responseDom.text('Invalid email').css('color', '#f00');
-          else if(reply == 2) responseDom.text('Incorrect password').css('color', '#f00');
-          else if(reply == 0) responseDom.text('An error occurred').css('color', '#f00');
-          else if(reply == 1) responseDom.text('Login successfull').css('color', 'green');
-        })
+        global.loginAction(data, $(this), responseDom);
       }
     }
   })

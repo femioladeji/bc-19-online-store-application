@@ -31,8 +31,9 @@
     "body-parser": "^1.15.2",
     "crypto": "0.0.3",
     "express": "^4.14.0",
-    "jwt-simple": "^0.5.0",
+    "jsonwebtoken": "^7.1.9",
     "multer": "^1.2.0",
-    "node-mysql": "^0.4.2"
+    "node-mysql": "^0.4.2",
+    "nodemailer": "^2.5.0"
   }
 }
