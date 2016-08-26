@@ -33,12 +33,24 @@ $(document).ready(function() {
       else {
         var formdata = new FormData()
         formdata.append('product_image', $('#productimage')[0].files[0]);
-        data.forEach(function(i, each) {
-          formdata.append(each, data[each]);
-        })
+        $.each(data, function(key, value) {
+          formdata.append(key, value);
+        });
         var apiresponse = myGlobal.advanceAjax(formdata, '/api/product', $(this));
         apiresponse.done(function(reply) {
-          console.log(reply);
+          if(reply == undefined) {
+            responseDom.text('An error occurred, please try again').removeClass('label-success').addClass('label-danger');
+          } else {
+            if(reply.status == false) {
+              responseDom.text('Invalid product image').removeClass('label-success').addClass('label-danger');
+            } else {
+              responseDom.text('Product Successfully created').removeClass('label-danger').addClass('label-success');
+              $('#productmodal').modal('hide');
+              setTimeout(function() {
+                myGlobal.renderPage('/products');
+              }, 500);
+            }
+          }
         })
       }
     }

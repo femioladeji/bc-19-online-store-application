@@ -15,17 +15,16 @@ var product = function() {
   }
 
   this.createProduct = function(request, response) {
-    console.log(request.body);
     var filedetails = request.file;
     var filetype = filedetails.mimetype.split('/')
     if(filetype[0] != 'image') {
       response.json({status:false, message:'Invalid product image'});
       response.end();
     } else {
-      /*var details = request.body.postArr;
+      var details = request.body;
       fs.rename(filedetails.path, filedetails.path+'.'+filetype[1]);
       details.product_image = filedetails.filename+'.'+filetype[1];
-      db.insertToDb('products', details, response);*/
+      db.insertToDb('products', details, response);
     }
     
   }
