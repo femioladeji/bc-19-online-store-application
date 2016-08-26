@@ -1,0 +1,18 @@
+.table{
+  font-size: 16px;
+}
+td{
+  vertical-align: middle !important;
+}
+.progress{
+  width:40px;
+  margin:auto;
+  display: none;
+  height:40px;
+  background:#fff;
+}
+.message{
+  color:#fff;
+  text-align: center;
+  width: auto;
+}

@@ -5,6 +5,31 @@ var MyGlobal = function() {
       type:type,
       url:url,
       data:data,
+      headers:{
+        'x-access-token':window.localStorage.getItem('token')
+      },
+      beforeSend:function() {
+        dom.addClass('disabled');
+        dom.siblings('.progress').show();
+      },
+      complete:function() {
+        dom.removeClass('disabled');
+        dom.siblings('.progress').hide();
+      }
+    })
+  }
+
+
+  this.advanceAjax = function(data, url, dom) {
+    return $.ajax({
+      type:'POST',
+      url:url,
+      data:data,
+      headers:{
+        'x-access-token':window.localStorage.getItem('token')
+      },
+      processData: false,  // tell jQuery not to process the data
+      contentType: false,   // tell jQuery not to set contentType
       beforeSend:function() {
         dom.addClass('disabled');
         dom.siblings('.progress').show();
@@ -49,16 +74,24 @@ var MyGlobal = function() {
         if(reply.status == false) {
           responseDom.css('color', '#f00');
         } else {
-        window.localStorage.setItem('token', reply.token);
-        responseDom.css('color','green');
-        setTimeout(function() {
-          //window.location.href = '/home?q='+window.localStorage.getItem('token');
-          var r = instance.pageRedirect('/home');
-          r.done(function(x) {
-            $('html').html(x);
-          })
+          window.localStorage.setItem('token', reply.token);
+          responseDom.css('color','green');
+          setTimeout(function() {
+            window.location.href = '/home?q='+window.localStorage.getItem('token');
+            /*var r = instance.pageRedirect('/home');
+            r.done(function(x) {
+              $('html').html(x);
+            })*/
           }, 1000);
         }
       })
   }
+
+  this.renderPage = function(url) {
+    var pageLoad = this.pageRedirect(url);
+    pageLoad.done(function(page) {
+      $('#page-inner').html(page);
+    })
+  }
+
 }

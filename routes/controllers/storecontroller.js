@@ -4,7 +4,7 @@ var db = new DBController();
 
 var store = function() {
   this.getStores = function(request, response) {
-    db.selectAll('stores', {'users_id':request.decoded.id}, response);
+    db.selectAll('stores', {'users_id':request.params.userid}, response);
   }
   this.createStore = function(request, response) {
     var details = request.body;

@@ -1,12 +1,16 @@
 var jwt = require('jsonwebtoken');
+var multer = require('multer');
 var express = require('express');
+
 var UserController = require('./controllers/usercontroller');
 var StoreController = require('./controllers/storecontroller');
+var ProductController = require('./controllers/productcontroller');
 
-
+var upload = multer({dest:'public/images/productimages/'});
 // instantiate the usercontroller
 var user = new UserController();
 var store = new StoreController();
+var product = new ProductController();
 
 var apiRoutes = express.Router();
 
@@ -17,7 +21,7 @@ var routes = function(app) {
 
   // route middleware to verify token
   apiRoutes.use(function(req, res, next) {
-    var token = req.body.token || req.query.q || req.headers['x-access-token'];
+    var token = req.query.q || req.headers['x-access-token'];
     if(token) {
       jwt.verify(token, 'secret', function(err, decoded) {
         if(err) {
@@ -40,11 +44,17 @@ var routes = function(app) {
     console.log(req.decoded);
   });*/
 
-  apiRoutes.get('/api/store', store.getStores);
+  apiRoutes.get('/api/store/:userid', store.getStores);
 
   apiRoutes.post('/api/store', store.createStore)
 
   apiRoutes.get('/api/user/:userid', user.getUserInfo);
+
+  apiRoutes.get('/api/product/:storeid', product.getProducts);
+
+  apiRoutes.get('/api/product', product.getProducts);
+
+  apiRoutes.post('/api/product', upload.single('product_image'), product.createProduct);
 }
 
 module.exports = routes;

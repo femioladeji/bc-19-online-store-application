@@ -1,98 +1,72 @@
-<head>
-      <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Online Store Application :: Dashboard</title>
-  <!-- BOOTSTRAP STYLES-->
-    <link href="css/bootstrap.css" rel="stylesheet" />
-     <!-- FONTAWESOME STYLES-->
-    <link href="css/font-awesome.css" rel="stylesheet" />
-        <!-- CUSTOM STYLES-->
-    <link href="css/temp.css" rel="stylesheet" />
-     <!-- GOOGLE FONTS-->
-   <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' /> -->
-</head>
-<body>
-     
+<div class="row">
+  <div class="col-md-12">
+    <h2>Store Management</h2>   
+  </div>
+</div>
+<hr />
 
-    <div id="wrapper">
-         <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="adjust-nav">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">
-                        <img src="images/logo.png" />
-                    </a>
-                </div>
-              
-                 <span class="logout-spn" >
-                  <a href="#" style="color:#fff; font-size:16px;">LOGOUT</a>  
-
-                </span>
-            </div>
-        </div>
-        <!-- /. NAV TOP  -->
-        <nav class="navbar-default navbar-side" role="navigation">
-            <div class="sidebar-collapse">
-                <ul class="nav" id="main-menu">
-                    <li >
-                        <a href="/home" ><i class="fa fa-desktop "></i>Dashboard </a>
-                    </li>
-                    <li>
-                        <a href="/user"><i class="fa fa-user "></i>User Profile</a>
-                    </li>
-                    <li>
-                        <a href="/stores"><i class="fa fa-shopping-cart"></i>Stores</a>
-                    </li>
-                    <li>
-                        <a href="/products"><i class="fa fa-gift "></i>Products</i></a>
-                    </li>
-                </ul>
-            </div>
-
-        </nav>
-        <!-- /. NAV SIDE  -->
-        <div id="page-wrapper" >
-            <div id="page-inner">
-                <div class="row">
-                    <div class="col-md-12">
-                     <h2>Store Management</h2>   
-                    </div>
-                </div>              
-                 <!-- /. ROW  -->
-                  <hr />
-              
-                 <!-- /. ROW  -->           
+<button class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#storemodal">CREATE STORE</button>
+<h4>MY STORES</h4>
+<div class="clearfix"></div>
+<br/>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <td>NAME</td>
+        <td>ADDRESS</td>
+        <td>DESCRIPTION</td>
+        <td>CONTACT</td>
+        <td>URL</td>
+        <td>EDIT</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% storelist.forEach(function(eachstore) { %>
+        <tr>
+          <td><%= eachstore.storename %></td>
+          <td><%= eachstore.address %></td>
+          <td><%= eachstore.description %></td>
+          <td><%= eachstore.contact %></td>
+          <td><%= eachstore.link %></td>
+          <td><button class="btn btn-primary" id="<%= eachstore.id %>">Edit</button></td></tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+<div class="modal fade" id="storemodal" role="dialog" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Create Store</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="storename">Store Name</label>
+            <input type="text" class="form-control" id="storename">
+          </div>
+          <div class="form-group">
+            <label for="contact">Contact Phone</label>
+            <input type="text" class="form-control" id="contact">
+          </div>
+          <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" id="address">
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" style="height:100px; resize:none;" class="form-control"></textarea>
+          </div>
+          <p class="message"></p>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <div class="progress pull-left"><img width="40" src="images/loader_black.gif"/></div>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary action" id="createstore">Create Store</button>
+      </div>
     </div>
-             <!-- /. PAGE INNER  -->
-            </div>
-         <!-- /. PAGE WRAPPER  -->
-        </div>
-    <div class="footer">
-      
-    
-             <div class="row">
-                <div class="col-lg-12" >
-                    <p class="text-center">Created with love by Femi Oladeji | <a href="#" style="font-weight:bold">About this product</a></p>
-                </div>
-        </div>
-        </div>
-          
-
-     <!-- /. WRAPPER  -->
-    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-    <!-- JQUERY SCRIPTS -->
-    <script src="js/jquery-2.2.3.min.js"></script>
-      <!-- BOOTSTRAP SCRIPTS -->
-    <script src="js/bootstrap.min.js"></script>
-      <!-- CUSTOM SCRIPTS -->
-    <script src="js/global.js"></script>
-    <script src="js/custom.js"></script>
-    <script src="js/serve.js"></script>
-    <script type="text/javascript">
-    
-    </script>
-</body>
+  </div>
+</div>

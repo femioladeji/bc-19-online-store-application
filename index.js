@@ -1,6 +1,6 @@
 var express = require('express');
 var routes = require('./routes/routing');
-var httpreq = require('request')
+var httpreq = require('request');
 var bodyParser = require('body-parser');
 
 var path = __dirname+'/public/views/';
@@ -10,6 +10,7 @@ app.use(express.static(__dirname+'/public'));
 //body parser for form handling
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
 
 app.set('views', path);
 app.set('view engine', 'ejs');
@@ -39,15 +40,38 @@ app.get('/home', function(request, response) {
 })
 
 app.get('/stores', function(request, response) {
-  /*httpreq.get({
-    'url':'/api/user',
-    'decoded':request.decoded
-  }, function(err, res, body) {
-    console.log(body);
-    response.render('stores');
-    response.end();
-  })*/
+  httpreq.get({
+    'url':'http://127.0.0.1:3000/api/store/'+request.decoded.id,
+    headers:{
+      'x-access-token': request.token
+    }
+  }, function(err, res, jsonresponse) {
+    response.render('stores', {
+      'storelist':JSON.parse(jsonresponse)
+    });
+  })
   
+})
+
+app.get('/products', function(request, response) {
+  httpreq.get({
+    'url':'http://127.0.0.1:3000/api/product',
+    headers:{
+      'x-access-token': request.token
+    }
+  }, function(err, res, productlist) {
+    httpreq.get({
+      'url':'http://127.0.0.1:3000/api/store/'+request.decoded.id,
+      headers:{
+        'x-access-token': request.token
+      }
+    }, function(err, res, storeList) {
+      response.render('products', {
+        'productlist':JSON.parse(productlist),
+        'storeList':JSON.parse(storeList)
+      });
+    })
+  })
 })
 
 
