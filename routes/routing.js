@@ -1,26 +1,30 @@
 var jwt = require('jsonwebtoken');
 var express = require('express');
 var UserController = require('./controllers/usercontroller');
+var StoreController = require('./controllers/storecontroller');
+
 
 // instantiate the usercontroller
 var user = new UserController();
+var store = new StoreController();
+
+var apiRoutes = express.Router();
 
 var routes = function(app) {
-  app.post('/api/login', user.login);
-  app.post('/api/register', user.register);
+  apiRoutes.post('/api/login', user.login);
+  apiRoutes.post('/api/register', user.register);
 
-  var apiRoutes = express.Router();
 
   // route middleware to verify token
   apiRoutes.use(function(req, res, next) {
     var token = req.body.token || req.query.q || req.headers['x-access-token'];
-
     if(token) {
       jwt.verify(token, 'secret', function(err, decoded) {
         if(err) {
           return res.json({status:false, message:'Token authentication failed'});
         } else {
           req.decoded = decoded;
+          req.token = token;
           next();
         }
       })
@@ -35,6 +39,12 @@ var routes = function(app) {
   /*app.get('/', function(req, res) {
     console.log(req.decoded);
   });*/
+
+  apiRoutes.get('/api/store', store.getStores);
+
+  apiRoutes.post('/api/store', store.createStore)
+
+  apiRoutes.get('/api/user/:userid', user.getUserInfo);
 }
 
 module.exports = routes;

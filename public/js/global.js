@@ -32,7 +32,7 @@ var MyGlobal = function() {
   }
 
   this.pageRedirect = function(url) {
-    $.ajax({
+    return $.ajax({
       url:url,
       method:'GET',
       headers:{
@@ -43,17 +43,22 @@ var MyGlobal = function() {
 
   this.loginAction = function(data, dom, responseDom) {
     var apiresponse = this.customAjax('POST', data, 'api/login', dom);
-        apiresponse.done(function(reply) {
-          responseDom.text(reply.message);
-          if(reply.status == false) {
-            responseDom.css('color', '#f00');
-          } else {
-            window.localStorage.setItem('token', reply.token);
-            responseDom.css('color','green');
-            setTimeout(function() {
-              window.location.href = '/home?q='+window.localStorage.getItem('token');
-            }, 1000);
-          }
-        })
+    var instance = this;
+    apiresponse.done(function(reply) {
+      responseDom.text(reply.message);
+        if(reply.status == false) {
+          responseDom.css('color', '#f00');
+        } else {
+        window.localStorage.setItem('token', reply.token);
+        responseDom.css('color','green');
+        setTimeout(function() {
+          //window.location.href = '/home?q='+window.localStorage.getItem('token');
+          var r = instance.pageRedirect('/home');
+          r.done(function(x) {
+            $('html').html(x);
+          })
+          }, 1000);
+        }
+      })
   }
 }

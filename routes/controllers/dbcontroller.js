@@ -46,14 +46,10 @@ var DBController = function() {
     var instance = this
     this.connection.getConnection(function(err, connection) {
       connection.query(query, function(err, result) {
-        if(!err) {
-          instance.responseHandler.send('1');
-        } else {
-          instance.responseHandler.send('0');
-        }
+        connection.release();
+        instance.responseHandler.json(result);
         instance.responseHandler.end();
       })
-      connection.release();
     })
   }
 
@@ -84,6 +80,19 @@ var DBController = function() {
     })
   }
 
+  this.selectAll = function(tablename, whereClause, response) {
+    this.responseHandler = response;
+    var query = "SELECT * FROM "+tablename+" WHERE ";
+    var startFlag = true;
+    for(key in whereClause) {
+      if(!startFlag) {
+        query += ' AND '
+      }
+      startFlag = false;
+      query += key+" = '"+whereClause[key]+"'";
+    }
+    this.executeQuery(query);
+  }
 }
 
 

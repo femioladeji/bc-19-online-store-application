@@ -23,6 +23,10 @@ var UserController = function() {
     var details = {'email':data.regemail, 'password':passwordArray[1], 'salt':passwordArray[0], 'firstname':fullname[0], 'lastname':fullname[1]};
     db.insertToDb('users', details, res);
   }
+
+  this.getUserInfo = function(req, res) {
+    db.selectAll('users', {'id':req.params.userid}, res);
+  }
 }
 
 module.exports = UserController;
