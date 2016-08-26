@@ -25,7 +25,7 @@ var UserController = function() {
   }
 
   this.getUserInfo = function(req, res) {
-    db.selectAll('users', {'id':req.decoded.id}, res);
+    db.selectAll('users', {'id':req.params.userid}, res);
   }
 }
 

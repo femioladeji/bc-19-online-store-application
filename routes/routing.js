@@ -8,11 +8,12 @@ var StoreController = require('./controllers/storecontroller');
 var user = new UserController();
 var store = new StoreController();
 
-var routes = function(app) {
-  app.post('/api/login', user.login);
-  app.post('/api/register', user.register);
+var apiRoutes = express.Router();
 
-  var apiRoutes = express.Router();
+var routes = function(app) {
+  apiRoutes.post('/api/login', user.login);
+  apiRoutes.post('/api/register', user.register);
+
 
   // route middleware to verify token
   apiRoutes.use(function(req, res, next) {
@@ -39,11 +40,11 @@ var routes = function(app) {
     console.log(req.decoded);
   });*/
 
-  app.get('/api/store', store.getStores);
+  apiRoutes.get('/api/store', store.getStores);
 
-  app.post('/api/store', store.createStore)
+  apiRoutes.post('/api/store', store.createStore)
 
-  app.get('/api/user', user.getUserInfo);
+  apiRoutes.get('/api/user/:userid', user.getUserInfo);
 }
 
 module.exports = routes;

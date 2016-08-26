@@ -26,7 +26,7 @@ routes(app);
 
 app.get('/home', function(request, response) {
   httpreq.get({
-    url:'http://127.0.0.1:3000/api/user',
+    url:'http://127.0.0.1:3000/api/user/'+request.decoded.id,
     headers:{
       'x-access-token': request.token
     }
