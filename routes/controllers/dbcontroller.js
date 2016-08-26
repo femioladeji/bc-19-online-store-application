@@ -46,6 +46,7 @@ var DBController = function() {
     var instance = this
     this.connection.getConnection(function(err, connection) {
       connection.query(query, function(err, result) {
+        console.log(query);
         connection.release();
         instance.responseHandler.json(result);
         instance.responseHandler.end();
