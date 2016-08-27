@@ -1,3 +1,4 @@
+<link rel="canonical" href="https://dev.twitter.com/web/tweet-button">
 <div class="row">
   <div class="col-md-12">
     <h2>Store Management</h2>   
@@ -28,7 +29,7 @@
           <td><%= eachstore.address %></td>
           <td><%= eachstore.description %></td>
           <td><%= eachstore.contact %></td>
-          <td><%= eachstore.link %></td>
+          <td><a href="https://twitter.com/intent/tweet?text=View store details for%20<%= eachstore.storename %>&url=http://127.0.0.1:3000/productstore?link=<%= eachstore.link %>&via=femidotexe" target="_blank" class="twitter-share-button"><i class="fa fa-twitter"></i>Share url</a></td>
           <td><button class="btn btn-primary" id="<%= eachstore.id %>">Edit</button></td></tr>
       <% }); %>
     </tbody>

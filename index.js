@@ -23,6 +23,21 @@ app.get('/', function(request, response) {
   response.render('index');
 })
 
+app.get('/productstore', function(request, response) {
+  httpreq.get({
+    url:'http://127.0.0.1:3000/api/productstore/'+request.query.link
+  }, function(err, res, jsonresponse) {
+    var products = JSON.parse(jsonresponse);
+    response.render('productstore', {
+      products    : products,
+      shopname    : products[0].storename,
+      description : products[0].description,
+      address     : products[0].address,
+      contact     : products[0].contact
+    });
+  })
+})
+
 routes(app);
 
 app.get('/home', function(request, response) {
