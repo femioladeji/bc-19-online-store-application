@@ -5,9 +5,11 @@ $(document).ready(function() {
     myGlobal.renderPage($(this).attr('href'));
   })
 
-  $('#page-inner').delegate('.action', 'click', function() {
+  $('#page-inner').delegate('.action', 'click', function(e) {
+    e.preventDefault();
     var responseDom = $(this).parents('.modal-footer').siblings('.modal-body').find('.message');
-    if($(this).attr('id') == 'createstore') {
+    var domid = $(this).attr('id');
+    if(domid == 'createstore') {
       var formFieldIds = ['storename', 'contact', 'address', 'description'];
       var data = myGlobal.getFormData(formFieldIds);
       if(data === 'null') responseDom.text('All fields are compulsory').addClass('label-danger');
@@ -26,7 +28,7 @@ $(document).ready(function() {
           
         })
       }
-    } else if($(this).attr('id') == 'createproduct') {
+    } else if(domid == 'createproduct') {
       var formFieldIds = ['product_name', 'product_desc', 'price', 'stores_id'];
       var data = myGlobal.getFormData(formFieldIds);
       if(data === 'null') responseDom.text('All fields are compulsory').addClass('label-danger');
@@ -50,6 +52,23 @@ $(document).ready(function() {
                 myGlobal.renderPage('/products');
               }, 500);
             }
+          }
+        })
+      }
+    } else if(domid == 'updateuser') {
+      var responseDom = $(this).siblings('.message');
+      var formFieldIds = ['firstname', 'lastname', 'email', 'password', 'confirmpassword'];
+      var data = myGlobal.getFormData(formFieldIds);
+      if(data === 'null') responseDom.text('All fields are compulsory').removeClass('label-success').addClass('label-danger');
+      else if(data.confirmpassword != data.password) responseDom.text('Passwords do not match').removeClass('label-success').addClass('label-danger');
+      else {
+        var response = myGlobal.customAjax('POST', data, '/api/updateuser', $(this));
+        response.done(function(reply) {
+          if(!reply) {
+            responseDom.text('This email already exists').removeClass('label-success').addClass('label-danger');
+          } else {
+            responseDom.text('Profile successfully updated').removeClass('label-danger').addClass('label-success');
+            $('.usersname').text(data.firstname+' '+data.lastname);
           }
         })
       }
