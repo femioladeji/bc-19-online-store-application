@@ -9,24 +9,39 @@ $(document).ready(function() {
     e.preventDefault();
     var responseDom = $(this).parents('.modal-footer').siblings('.modal-body').find('.message');
     var domid = $(this).attr('id');
-    if(domid == 'createstore') {
+    if(domid == 'createstore' || domid == 'editstore') {
       var formFieldIds = ['storename', 'contact', 'address', 'description'];
       var data = myGlobal.getFormData(formFieldIds);
       if(data === 'null') responseDom.text('All fields are compulsory').addClass('label-danger');
       else {
-        var apiresponse = myGlobal.customAjax('POST', data, '/api/store', $(this));
-        apiresponse.done(function(reply) {
-          if(reply != undefined) {
-            responseDom.text('Shop Creation was successfull').removeClass('label-danger').addClass('label-success');
-            $('#storemodal').modal('hide');
-            setTimeout(function() {
-              myGlobal.renderPage('/stores');
-            }, 500);
-          } else {
-            responseDom.text('An error occurred, please try again').removeClass('label-success').addClass('label-danger');
-          }
-          
-        })
+        if(domid == 'createstore'){
+          var apiresponse = myGlobal.customAjax('POST', data, '/api/store', $(this));
+          apiresponse.done(function(reply) {
+            if(reply != undefined) {
+              responseDom.text('Store Creation was successfull').removeClass('label-danger').addClass('label-success');
+              $('#storemodal').modal('hide');
+              setTimeout(function() {
+                myGlobal.renderPage('/stores');
+              }, 500);
+            } else {
+              responseDom.text('An error occurred, please try again').removeClass('label-success').addClass('label-danger');
+            }
+            
+          })
+        } else if(domid == 'editstore') {
+          var apiresponse = myGlobal.customAjax('POST', data, '/api/updatestore/'+$(this).attr('storeid'), $(this));
+          apiresponse.done(function(reply) {
+            if(reply != undefined) {
+              responseDom.text('Store successfully updated').removeClass('label-danger').addClass('label-success');
+              $('#storemodal').modal('hide');
+              setTimeout(function() {
+                myGlobal.renderPage('/stores');
+              }, 500);
+            } else {
+              responseDom.text('An error occurred, please try again').removeClass('label-success').addClass('label-danger');
+            }
+          })
+        }
       }
     } else if(domid == 'createproduct') {
       var formFieldIds = ['product_name', 'product_desc', 'price', 'stores_id'];
@@ -72,7 +87,23 @@ $(document).ready(function() {
           }
         })
       }
-    }
+    } 
   })
   
+  $('#page-inner').delegate('.editstore', 'click', function(e) {
+    var tdAll = $(this).parents('tr').find('td');
+    var fields = {storename:'', address: '', description:'', contact:''}
+    var index = 0;
+    for(var key in fields) {
+      if(key === 'description') {
+        $('#'+key).text(tdAll.eq(index).text());
+      } else {
+        $('#'+key).attr('value', tdAll.eq(index).text());
+      }
+      $('.create').hide();
+      $('.edit').attr('storeid', $(this).attr('id'));
+      $('.edit').show();
+      index++;
+    }
+  });
 })

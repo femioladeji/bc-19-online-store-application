@@ -48,7 +48,9 @@ var routes = function(app) {
 
   apiRoutes.get('/api/store/:userid', store.getStores);
 
-  apiRoutes.post('/api/store', store.createStore)
+  apiRoutes.post('/api/store', store.createStore);
+
+  apiRoutes.post('/api/updatestore/:storeid', store.updateStore);
 
   apiRoutes.get('/api/user/:userid', user.getUserInfo);
 
