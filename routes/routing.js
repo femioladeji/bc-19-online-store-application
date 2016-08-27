@@ -44,6 +44,7 @@ var routes = function(app) {
   /*app.get('/', function(req, res) {
     console.log(req.decoded);
   });*/
+  apiRoutes.post('/api/updateuser', user.updateUser);
 
   apiRoutes.get('/api/store/:userid', store.getStores);
 

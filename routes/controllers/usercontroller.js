@@ -27,6 +27,15 @@ var UserController = function() {
   this.getUserInfo = function(req, res) {
     db.selectAll('users', {'id':req.params.userid}, res);
   }
+
+  this.updateUser = function(req, res) {
+    details = req.body;
+    var passwordArray = hash(details.password);
+    details.password = passwordArray[1];
+    details.salt = passwordArray[0];
+    delete details['confirmpassword'];
+    db.updateTable('users', details, {'id':req.decoded.id}, res);
+  }
 }
 
 module.exports = UserController;

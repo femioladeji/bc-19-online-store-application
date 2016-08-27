@@ -25,12 +25,12 @@ $(document).ready(function() {
         var apiresponse = global.customAjax('POST', data, '/api/register', $(this));
         apiresponse.done(function(reply) {
           if(reply != undefined) {
-            responseDom.text('Registration successfull').css('color', 'green');
+            responseDom.text('Registration successfull').removeClass('label-danger').addClass('label-success');
             setTimeout(function() {
               global.loginAction({'email':data.regemail, 'password':data.regpassword}, $(this), responseDom)
             }, 1000);
           } else {
-            responseDom.text('An error occurred').css('color', '#f00');
+            responseDom.text('This email already exists').removeClass('label-success').addClass('label-danger');
           }
         })
       }

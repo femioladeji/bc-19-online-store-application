@@ -47,7 +47,8 @@ var DBController = function() {
     this.connection.getConnection(function(err, connection) {
       connection.query(query, function(err, result) {
         connection.release();
-        instance.responseHandler.json(result);
+        if(err) instance.responseHandler.send(undefined);
+        else instance.responseHandler.json(result);
         instance.responseHandler.end();
       })
     })
@@ -97,6 +98,29 @@ var DBController = function() {
   this.getProducts = function(storeurl, response) {
     this.responseHandler = response;
     var query = "SELECT * FROM products INNER JOIN stores ON stores_id = stores.id AND stores.link = '"+storeurl+"'";
+    this.executeQuery(query);
+  }
+
+  this.updateTable = function(tableName, data, whereClause, response) {
+    this.responseHandler = response;
+    var query = "UPDATE "+tableName+" SET ";
+    var startFlag = true;
+    for(var key in data) {
+      if(!startFlag) {
+        query += ', ';
+      }
+      query += key +" = '"+data[key]+"'";
+      startFlag = false;
+    }
+    query += ' WHERE ';
+    startFlag = true;
+    for(var key in whereClause) {
+      if(!startFlag) {
+        query += ' AND ';
+      }
+      query += key +" = '"+whereClause[key]+"'";
+      startFlag = false;
+    }
     this.executeQuery(query);
   }
 }
