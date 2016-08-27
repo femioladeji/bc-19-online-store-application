@@ -32,7 +32,9 @@
                 <% products.forEach(function(aproduct){ %>
                     <div class="col-md-3 eachproduct" style="background:#fff">
                         <br/><span style="padding:5px;"><%= aproduct.category_id %></span><br/><br/>
-                        <center><img style="width:100%" src="images/productimages/<%= aproduct.product_image %>" /></center>
+                        <div class="productimage">
+                            <img style="width:100%" src="images/productimages/<%= aproduct.product_image %>" />
+                        </div>
                         <hr>
                         <p class="text-center" style="font-size:18px;"><%= aproduct.product_name %></p>
                         <p class="text-center" style="color:#f00">₦<%= aproduct.price %></p>
@@ -45,7 +47,7 @@
             <div class="clearfix"></div><br/>
             <div class="row" style="margin-top:20px;">
                 <div class="col-md-12">
-                    <p class="text-center">Created with love by Femi Oladeji | <a href="#" style="font-weight:bold">About this product</a></p>
+                    <p class="text-center">Created with love by Femi Oladeji | <a href="#" style="font-weight:bold">About this app</a></p>
                 </div>
             </div>
         </div>
