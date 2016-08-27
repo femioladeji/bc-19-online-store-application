@@ -74,20 +74,28 @@ app.get('/products', function(request, response) {
     headers:{
       'x-access-token': request.token
     }
-  }, function(err, res, productlist) {
+  }, function(err, res, productList) {
     httpreq.get({
       'url':'http://127.0.0.1:3000/api/store/'+request.decoded.id,
       headers:{
         'x-access-token': request.token
       }
     }, function(err, res, storeList) {
-      response.render('products', {
-        'productlist':JSON.parse(productlist),
-        'storeList':JSON.parse(storeList)
+      httpreq.get({
+        'url':'http://127.0.0.1:3000/api/category',
+        headers:{
+          'x-access-token': request.token
+        }
+      }, function(err, res, categoryList) {
+        response.render('products', {
+          'productlist':JSON.parse(productList),
+          'storeList':JSON.parse(storeList),
+          'categoryList':JSON.parse(categoryList),
+        });
       });
-    })
-  })
-})
+    });
+  });
+});
 
 app.get('/user', function(request, response) {
   httpreq.get({

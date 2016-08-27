@@ -44,7 +44,7 @@ $(document).ready(function() {
         }
       }
     } else if(domid == 'createproduct') {
-      var formFieldIds = ['product_name', 'product_desc', 'price', 'stores_id'];
+      var formFieldIds = ['product_name', 'product_desc', 'price', 'stores_id', 'category_id'];
       var data = myGlobal.getFormData(formFieldIds);
       if(data === 'null') responseDom.text('All fields are compulsory').addClass('label-danger');
       else {

@@ -83,11 +83,14 @@ var DBController = function() {
 
   this.selectAll = function(tablename, whereClause, response) {
     this.responseHandler = response;
-    var query = "SELECT * FROM "+tablename+" WHERE ";
+    var query = "SELECT * FROM "+tablename;
+    if(whereClause != null) {
+      query += " WHERE ";
+    }
     var startFlag = true;
     for(key in whereClause) {
       if(!startFlag) {
-        query += ' AND '
+        query += ' AND ';
       }
       startFlag = false;
       query += key+" = '"+whereClause[key]+"'";
@@ -97,7 +100,7 @@ var DBController = function() {
 
   this.getProducts = function(storeurl, response) {
     this.responseHandler = response;
-    var query = "SELECT * FROM products INNER JOIN stores ON stores_id = stores.id AND stores.link = '"+storeurl+"'";
+    var query = "SELECT * FROM products INNER JOIN stores ON stores_id = stores.id AND stores.link = '"+storeurl+"' INNER JOIN category ON category.id = category_id";
     this.executeQuery(query);
   }
 
