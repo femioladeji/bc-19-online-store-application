@@ -16,6 +16,11 @@ var store = function() {
   this.getProductsInStore = function(request, response) {
     db.getProducts(request.params.storeurl, response);
   }
+
+  this.updateStore = function(request, response) {
+    details = request.body;
+    db.updateTable('stores', details, {'id':request.params.storeid}, response);
+  }
 }
 
 module.exports = store;

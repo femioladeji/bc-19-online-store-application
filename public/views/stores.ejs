@@ -30,7 +30,7 @@
           <td><%= eachstore.description %></td>
           <td><%= eachstore.contact %></td>
           <td><a href="https://twitter.com/intent/tweet?text=View store details for%20<%= eachstore.storename %>&url=http://127.0.0.1:3000/productstore?link=<%= eachstore.link %>&via=femidotexe" target="_blank" class="twitter-share-button"><i class="fa fa-twitter"></i>Share url</a></td>
-          <td><button class="btn btn-primary" id="<%= eachstore.id %>">Edit</button></td></tr>
+          <td><button class="btn btn-primary editstore" data-toggle="modal" data-target="#storemodal" id="<%= eachstore.id %>">Edit</button></td></tr>
       <% }); %>
     </tbody>
   </table>
@@ -66,7 +66,8 @@
       <div class="modal-footer">
         <div class="progress pull-left"><img width="40" src="images/loader_black.gif"/></div>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary action" id="createstore">Create Store</button>
+        <button type="button" class="btn btn-primary action create" id="createstore">Create Store</button>
+        <button type="button" class="btn btn-primary action edit" storeid="" id="editstore">Save</button>
       </div>
     </div>
   </div>
