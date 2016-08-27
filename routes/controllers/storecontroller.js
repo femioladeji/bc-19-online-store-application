@@ -12,6 +12,10 @@ var store = function() {
     details.link = request.decoded.id+''+Date.now();
     db.insertToDb('stores', details, response);
   }
+
+  this.getProductsInStore = function(request, response) {
+    db.getProducts(request.params.storeurl, response);
+  }
 }
 
 module.exports = store;

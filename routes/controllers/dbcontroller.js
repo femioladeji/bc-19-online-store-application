@@ -93,6 +93,12 @@ var DBController = function() {
     }
     this.executeQuery(query);
   }
+
+  this.getProducts = function(storeurl, response) {
+    this.responseHandler = response;
+    var query = "SELECT * FROM products INNER JOIN stores ON stores_id = stores.id AND stores.link = '"+storeurl+"'";
+    this.executeQuery(query);
+  }
 }
 
 

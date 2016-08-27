@@ -18,6 +18,7 @@ var routes = function(app) {
   apiRoutes.post('/api/login', user.login);
   apiRoutes.post('/api/register', user.register);
 
+  apiRoutes.get('/api/productstore/:storeurl', store.getProductsInStore);
 
   // route middleware to verify token
   apiRoutes.use(function(req, res, next) {
