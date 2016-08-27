@@ -31,7 +31,7 @@
             <div class="row">
                 <% products.forEach(function(aproduct){ %>
                     <div class="col-md-3 eachproduct" style="background:#fff">
-                        <br/><span style="padding:5px;"><%= aproduct.category_id %></span><br/><br/>
+                        <br/><span class="bg-primary" style="padding:5px;"><%= aproduct.category_name %></span><br/><br/>
                         <div class="productimage">
                             <img style="width:100%" src="images/productimages/<%= aproduct.product_image %>" />
                         </div>

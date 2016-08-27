@@ -17,7 +17,7 @@
         <td>STORE</td>
         <td>DESCRIPTION</td>
         <td>PRICE</td>
-        <!-- <td>CATEGORY</td> -->
+        <td>CATEGORY</td>
         <td>IMAGE</td>
         <td>EDIT</td>
       </tr>
@@ -29,7 +29,8 @@
           <td><%= eachproduct.storename %></td>
           <td><%= eachproduct.product_desc %></td>
           <td>₦<%= eachproduct.price %></td>
-          <td><%= eachproduct.product_image %></td>
+          <td><%= eachproduct.category_name %></td>
+          <td></td>
           <td><button class="btn btn-primary" id="<%= eachproduct.productid %>">Edit</button></td></tr>
       <% }); %>
     </tbody>
@@ -66,6 +67,15 @@
             </select>
           </div>
           <div class="form-group">
+            <label for="category_id">Product Category</label>
+            <select class="form-control" id="category_id" name="category_id">
+              <option value="">--Select Category--</option>
+              <% categoryList.forEach(function(aCategory){ %>
+                <option value="<%= aCategory.id %>"><%= aCategory.category_name %></option>
+              <%  }) %>
+            </select>
+          </div>
+          <div class="form-group">
             <label for="productimage">Product Image</label>
             <input type="file" class="form-control" id="productimage" name="productimage">
           </div>
@@ -75,7 +85,7 @@
       <div class="modal-footer">
         <div class="progress pull-left"><img width="40" src="images/loader_black.gif"/></div>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary action" id="createproduct">Create Store</button>
+        <button type="button" class="btn btn-primary action" id="createproduct">Create Product</button>
       </div>
     </div>
   </div>

@@ -59,6 +59,8 @@ var routes = function(app) {
   apiRoutes.get('/api/product', product.getProducts);
 
   apiRoutes.post('/api/product', upload.single('product_image'), product.createProduct);
+
+  apiRoutes.get('/api/category', product.getCategory);
 }
 
 module.exports = routes;

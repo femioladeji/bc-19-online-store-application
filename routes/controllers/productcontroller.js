@@ -6,12 +6,12 @@ var db = new DBController();
 var product = function() {
   this.getProducts = function(request, response) {
     if(request.params.storeid == undefined) {
-      var query = "SELECT *, products.id AS productid FROM stores INNER JOIN products ON products.stores_id = stores.id AND stores.users_id = "+request.decoded.id;
-      db.responseHandler = response;
-      db.executeQuery(query);
+      var query = "SELECT *, products.id AS productid FROM stores INNER JOIN products ON products.stores_id = stores.id AND stores.users_id = "+request.decoded.id +" INNER JOIN category ON category.id = category_id";
     } else {
-      db.selectAll('products', {'stores_id':request.params.storeid}, response);
+      var query = "SELECT *, products.id AS productid FROM products INNER JOIN category ON products.stores_id = "+request.params.storeid+" AND category.id = category_id";
     }
+    db.responseHandler = response;
+    db.executeQuery(query);
   }
 
   this.createProduct = function(request, response) {
@@ -26,7 +26,10 @@ var product = function() {
       details.product_image = filedetails.filename+'.'+filetype[1];
       db.insertToDb('products', details, response);
     }
-    
+  }
+
+  this.getCategory = function(request, response) {
+    db.selectAll('category', null, response);
   }
 }
 
