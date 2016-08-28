@@ -5,20 +5,19 @@
 </div>
 <hr />
 
-<button class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#productmodal">CREATE PRODUCT</button>
+<button class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#productmodal" id="createproductmodal">CREATE PRODUCT</button>
 <h4>MY PRODUCTS</h4>
 <div class="clearfix"></div>
 <br/>
 <div class="table-responsive">
-  <table class="table table-hover">
+  <table class="table table-hover table-striped">
     <thead>
       <tr>
         <td>NAME</td>
         <td>STORE</td>
         <td>DESCRIPTION</td>
-        <td>PRICE</td>
+        <td>PRICE(₦)</td>
         <td>CATEGORY</td>
-        <td>IMAGE</td>
         <td>EDIT</td>
       </tr>
     </thead>
@@ -28,10 +27,9 @@
           <td><%= eachproduct.product_name %></td>
           <td><%= eachproduct.storename %></td>
           <td><%= eachproduct.product_desc %></td>
-          <td>₦<%= eachproduct.price %></td>
+          <td><%= eachproduct.price %></td>
           <td><%= eachproduct.category_name %></td>
-          <td></td>
-          <td><button class="btn btn-primary" id="<%= eachproduct.productid %>">Edit</button></td></tr>
+          <td><button class="btn btn-primary editproduct" data-toggle="modal" data-target="#productmodal" id="<%= eachproduct.productid %>">Edit</button></td></tr>
       <% }); %>
     </tbody>
   </table>
@@ -85,7 +83,8 @@
       <div class="modal-footer">
         <div class="progress pull-left"><img width="40" src="images/loader_black.gif"/></div>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary action" id="createproduct">Create Product</button>
+        <button type="button" class="btn btn-primary action create" id="createproduct">Create Product</button>
+        <button type="button" class="btn btn-primary action edit" productid="" id="editproduct">Edit Product</button>
       </div>
     </div>
   </div>
