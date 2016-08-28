@@ -1,12 +1,23 @@
 $(document).ready(function() {
+
+  if(!window.localStorage.getItem('token')) {
+    window.location.href = '/';
+  }
+
   var myGlobal = new MyGlobal();
 
   myGlobal.renderPage('/dashboard');
 
-  $('a').click(function(event) {
+  $('a:not("#logout")').click(function(event) {
     event.preventDefault();
     myGlobal.renderPage($(this).attr('href'));
   });
+
+  $('#logout').click(function(e) {
+    e.preventDefault();
+    window.localStorage.removeItem('token');
+    window.location.href = '/';
+  })
 
   $('#page-inner').delegate('a', 'click', function(e) {
     event.preventDefault();

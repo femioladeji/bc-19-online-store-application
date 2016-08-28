@@ -124,7 +124,6 @@ app.get('/dashboard', function(request, response) {
       'x-access-token': request.token
     }
   }, function(err, res, details) {
-    console.log(details);
     details = JSON.parse(details);
     response.render('dashboard', {
       storenumber : details.storenumber,
