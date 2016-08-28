@@ -50,7 +50,7 @@ var DBController = function() {
       }
       connection.query(query, function(err, result) {
         connection.release();
-        if(err) instance.responseHandler.send(undefined);
+        if(err) instance.responseHandler.json(false);
         else instance.responseHandler.json(result);
         instance.responseHandler.end();
       })

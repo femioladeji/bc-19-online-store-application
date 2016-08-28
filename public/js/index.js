@@ -23,13 +23,13 @@ $(document).ready(function() {
     if($(this).attr('id') === 'register') {
       var formFieldIds = ['fullname', 'regemail', 'regpassword', 'confirmpassword'];
       var data = global.getFormData(formFieldIds);
-      if(data === 'null') responseDom.text('All fields are compulsory').css('color', '#f00');
-      else if(data.confirmpassword !== data.regpassword) responseDom.text('Passwords do not match').css('color', '#f00');
-      else if(data.fullname.split(' ').length <= 1) responseDom.text('Your fullname is required(at least 2)').css('color', '#f00');
+      if(data === 'null') responseDom.text('All fields are compulsory').removeClass('label-success').addClass('label-danger');
+      else if(data.confirmpassword !== data.regpassword) responseDom.text('Passwords do not match').removeClass('label-success').addClass('label-danger');
+      else if(data.fullname.split(' ').length <= 1) responseDom.text('Your fullname is required(at least 2)').removeClass('label-success').addClass('label-danger');
       else {
         var apiresponse = global.customAjax('POST', data, '/api/register', $(this));
         apiresponse.done(function(reply) {
-          if(reply != undefined) {
+          if(reply != false) {
             responseDom.text('Registration successfull').removeClass('label-danger').addClass('label-success');
             setTimeout(function() {
               global.loginAction({'email':data.regemail, 'password':data.regpassword}, $(this), responseDom)
