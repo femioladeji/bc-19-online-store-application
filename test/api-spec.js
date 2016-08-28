@@ -2,6 +2,7 @@
 
 var chai = require('chai');
 var chaihttp = require('chai-http');
+var should = chai.should();
 var assert = chai.assert;
 
 var app = require('../index.js');
@@ -12,11 +13,11 @@ describe('Testing the user api link', function() {
   it('should return a json with status: false and message: "Invalid email address when a wrong email is sent"',
     function() {
       chai.request(app)
-      .get('/api/login')
+      .post('/api/login')
+      .send({'email':'falseemail', 'password':'wrong'})
       .end(function(err, res){
-        console.log(res);
-        //res.should.have.status(200);
-        done();
+        res.body.message.should.equal('Invalid');
+      done();
       });
   })
 })

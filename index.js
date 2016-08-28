@@ -36,8 +36,12 @@ app.get('/productstore', function(request, response) {
   }, function(err, res, jsonresponse) {
     if(!err) {
       var products = JSON.parse(jsonresponse);
+      var productList = products;
+      if(products[0].product_name == null) {
+        productList = [];
+      }
       response.render('productstore', {
-        products    : products,
+        products    : productList,
         shopname    : products[0].storename,
         description : products[0].description,
         address     : products[0].address,
@@ -138,4 +142,6 @@ app.get('/dashboard', function(request, response) {
   })
   
 })
+
+module.exports = app;
 

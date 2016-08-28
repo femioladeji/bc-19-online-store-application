@@ -4,7 +4,7 @@
   "description": "Andela Bootcamp project by Oladeji Femi. The project is an online store application that will allow users to create stores and create products",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nyc mocha",
     "start": "node index.js"
   },
   "repository": {
