@@ -31,6 +31,20 @@ var product = function() {
   this.getCategory = function(request, response) {
     db.selectAll('category', null, response);
   }
+
+  this.updateProduct = function(request, response) {
+    var filedetails = request.file;
+    var filetype = filedetails.mimetype.split('/')
+    if(filetype[0] != 'image') {
+      response.json({status:false, message:'Invalid product image'});
+      response.end();
+    } else {
+      var details = request.body;
+      fs.rename(filedetails.path, filedetails.path+'.'+filetype[1]);
+      details.product_image = filedetails.filename+'.'+filetype[1];
+      db.updateTable('products', details, {'id':request.params.productid}, response);
+    }
+  }
 }
 
 module.exports = product;

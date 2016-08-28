@@ -16,3 +16,6 @@ td{
   text-align: center;
   width: auto;
 }
+.edit{
+  display: none;
+}
