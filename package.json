@@ -29,6 +29,8 @@
   "homepage": "https://github.com/femidotexe/bc-19-online-store-application#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
     "crypto": "0.0.3",
     "dotenv": "^2.0.0",
     "ejs": "^2.5.1",
@@ -37,6 +39,7 @@
     "multer": "^1.2.0",
     "node-mysql": "^0.4.2",
     "nodemailer": "^2.5.0",
+    "nyc": "^8.1.0",
     "request": "^2.74.0"
   }
 }
