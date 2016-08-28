@@ -3,26 +3,32 @@ var routes = require('./routes/routing');
 var httpreq = require('request');
 var bodyParser = require('body-parser');
 
-var path = __dirname+'/public/views/';
 var app = express();
+//for serving static css and js files
 app.use(express.static(__dirname+'/public'));
 
 //body parser for form handling
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
+//path to ejs templates and
+//setting ejs for rendering
+var path = __dirname+'/public/views/';
 app.set('views', path);
 app.set('view engine', 'ejs');
 
+
+//start server
 app.listen(3000, function() {
   console.log('App is ready to be accessed on http://localhost:3000');
 });
 
+//gets the index page
 app.get('/', function(request, response) {
   response.render('index');
 })
 
+//public url for viewing products in a store
 app.get('/productstore', function(request, response) {
   httpreq.get({
     url:'http://127.0.0.1:3000/api/productstore/'+request.query.link
@@ -37,6 +43,7 @@ app.get('/productstore', function(request, response) {
     });
   })
 })
+
 
 routes(app);
 
@@ -110,4 +117,20 @@ app.get('/user', function(request, response) {
   })
 })
 
+app.get('/dashboard', function(request, response) {
+  httpreq.get({
+    'url':'http://127.0.0.1:3000/api/dashboardinfo/'+request.decoded.id,
+    headers:{
+      'x-access-token': request.token
+    }
+  }, function(err, res, details) {
+    console.log(details);
+    details = JSON.parse(details);
+    response.render('dashboard', {
+      storenumber : details.storenumber,
+      productcat  : details.productpercategory, 
+    });
+  })
+  
+})
 

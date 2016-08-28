@@ -126,6 +126,22 @@ var DBController = function() {
     }
     this.executeQuery(query);
   }
+
+  this.getDashboardInfo = function(userid) {
+    var thisInstance = this;
+    var numberofstoresquery = "SELECT COUNT(id) AS number FROM stores WHERE users_id = "+userid;
+    this.connection.getConnection(function(err, connection) {
+      connection.query(numberofstoresquery, function(err, result) {
+        var numberofstores = result[0].number;
+        var query = "SELECT category_name, COUNT(products.id) AS numberofproducts FROM category, products, stores WHERE stores.users_id = "+ userid +" AND products.stores_id = stores.id AND category.id = category_id GROUP BY category_id";
+        connection.query(query, function(err, result) {
+          connection.release();
+          thisInstance.responseHandler.json({storenumber : numberofstores, productpercategory : result});
+          thisInstance.responseHandler.end();
+        })
+      })
+    });
+  }
 }
 
 

@@ -1,9 +1,17 @@
 $(document).ready(function() {
   var myGlobal = new MyGlobal();
+
+  myGlobal.renderPage('/dashboard');
+
   $('a').click(function(event) {
     event.preventDefault();
     myGlobal.renderPage($(this).attr('href'));
-  })
+  });
+
+  $('#page-inner').delegate('a', 'click', function(e) {
+    event.preventDefault();
+    myGlobal.renderPage($(this).attr('href'));
+  });
 
   $('#page-inner').delegate('.action', 'click', function(e) {
     e.preventDefault();

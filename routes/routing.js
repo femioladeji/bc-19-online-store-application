@@ -46,6 +46,8 @@ var routes = function(app) {
   });*/
   apiRoutes.post('/api/updateuser', user.updateUser);
 
+  apiRoutes.get('/api/dashboardinfo/:userid', user.getDashboard);
+
   apiRoutes.get('/api/store/:userid', store.getStores);
 
   apiRoutes.post('/api/store', store.createStore);
