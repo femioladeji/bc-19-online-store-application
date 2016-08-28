@@ -1,11 +1,12 @@
 var express = require('express');
 var routes = require('./routes/routing');
 var httpreq = require('request');
+var path = require('path');
 var bodyParser = require('body-parser');
 
 var app = express();
 //for serving static css and js files
-app.use(express.static(__dirname+'/public'));
+app.use(express.static(path.join(__dirname, '/public')));
 
 //body parser for form handling
 app.use(bodyParser.json());
@@ -13,8 +14,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //path to ejs templates and
 //setting ejs for rendering
-var path = __dirname+'/public/views/';
-app.set('views', path);
+var setpath = path.join(__dirname, '/public/views/');
+app.set('views', setpath);
 app.set('view engine', 'ejs');
 
 
@@ -33,14 +34,19 @@ app.get('/productstore', function(request, response) {
   httpreq.get({
     url:'http://127.0.0.1:3000/api/productstore/'+request.query.link
   }, function(err, res, jsonresponse) {
-    var products = JSON.parse(jsonresponse);
-    response.render('productstore', {
-      products    : products,
-      shopname    : products[0].storename,
-      description : products[0].description,
-      address     : products[0].address,
-      contact     : products[0].contact
-    });
+    if(!err) {
+      var products = JSON.parse(jsonresponse);
+      response.render('productstore', {
+        products    : products,
+        shopname    : products[0].storename,
+        description : products[0].description,
+        address     : products[0].address,
+        contact     : products[0].contact
+      });
+    } else {
+      response.status(522).send('No internet access');
+    }
+
   })
 })
 
