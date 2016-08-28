@@ -1,4 +1,9 @@
 $(document).ready(function() {
+
+  if(window.localStorage.getItem('token')) {
+    window.location.href = '/home?q='+window.localStorage.getItem('token');
+  }
+
   var flag = true;
   $('.switch').click(function() {
     if(flag) {

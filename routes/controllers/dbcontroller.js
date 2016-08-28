@@ -45,6 +45,9 @@ var DBController = function() {
   this.executeQuery = function(query) {
     var instance = this
     this.connection.getConnection(function(err, connection) {
+      if(err) {
+        instance.responseHanler.status(403).send('Check your mysql server');
+      }
       connection.query(query, function(err, result) {
         connection.release();
         if(err) instance.responseHandler.send(undefined);
