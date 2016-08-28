@@ -36,6 +36,12 @@ var UserController = function() {
     delete details['confirmpassword'];
     db.updateTable('users', details, {'id':req.decoded.id}, res);
   }
+
+  this.getDashboard = function(req, res) {
+    var userid = req.params.userid;
+    db.responseHandler = res;
+    db.getDashboardInfo(userid);
+  }
 }
 
 module.exports = UserController;
