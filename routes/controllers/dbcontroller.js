@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 var jwt = require('jsonwebtoken');
-
+require('dotenv').config();
 const crypto = require('crypto');
 
 function hash(rawstring, salt) {
@@ -9,10 +9,10 @@ function hash(rawstring, salt) {
 
 var DBController = function() {
   this.connection = mysql.createPool({
-    host      : '127.0.0.1',
-    user      : 'root',
-    password  : '',
-    database  : 'online-store',
+    host      : process.env.DBHOST,
+    user      : process.env.DBUSER,
+    password  : process.env.DBPASSWORD,
+    database  : process.env.DBNAME,
     connectionLimit : 100
   });
 
@@ -46,11 +46,12 @@ var DBController = function() {
     var instance = this
     this.connection.getConnection(function(err, connection) {
       if(err) {
-        instance.responseHanler.status(403).send('Check your mysql server');
+        console.log('Please check your mysql server and parameters')
+        //instance.responseHanler.send('Check your mysql server and parameters');
       }
       connection.query(query, function(err, result) {
         connection.release();
-        if(err) instance.responseHandler.send(undefined);
+        if(err) instance.responseHandler.json(false);
         else instance.responseHandler.json(result);
         instance.responseHandler.end();
       })

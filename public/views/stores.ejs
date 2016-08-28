@@ -30,7 +30,7 @@
           <td><%= eachstore.address %></td>
           <td><%= eachstore.description %></td>
           <td><%= eachstore.contact %></td>
-          <td><a href="https://twitter.com/intent/tweet?text=View store details for%20<%= eachstore.storename %>&url=http://127.0.0.1:3000/productstore?link=<%= eachstore.link %>&via=femidotexe" target="_blank" class="twitter-share-button"><i class="fa fa-twitter"></i>Share url</a></td><td><a href="http://127.0.0.1:3000/productstore?link=<%= eachstore.link %>" target="_blank">Store Page</a></td>
+          <td><a class="storepage" href="https://twitter.com/intent/tweet?text=View store details for%20<%= eachstore.storename %>&url=http://127.0.0.1:3000/productstore?link=<%= eachstore.link %>&via=femidotexe" target="_blank" class="twitter-share-button"><i class="fa fa-twitter"></i>Share url</a></td><td><a class="storepage" href="http://127.0.0.1:3000/productstore?link=<%= eachstore.link %>" target="_blank">Store Page</a></td>
           <td><button class="btn btn-primary editstore" data-toggle="modal" data-target="#storemodal" id="<%= eachstore.id %>">Edit</button></td></tr>
       <% }); %>
     </tbody>
