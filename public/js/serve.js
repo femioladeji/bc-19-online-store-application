@@ -1,9 +1,5 @@
 $(document).ready(function() {
 
-  if(!window.localStorage.getItem('token')) {
-    window.location.href = '/';
-  }
-
   var myGlobal = new MyGlobal();
 
   myGlobal.renderPage('/dashboard');
