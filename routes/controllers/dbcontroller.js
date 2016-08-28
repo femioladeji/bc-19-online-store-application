@@ -36,7 +36,7 @@ var DBController = function() {
         query += ', ';
       }
       startFlag = false;
-      query += "'"+dataToInsert[key]+"'"; 
+      query += mysql.escape(dataToInsert[key]); 
     }
     query += ')';
     this.executeQuery(query);
@@ -104,7 +104,7 @@ var DBController = function() {
 
   this.getProducts = function(storeurl, response) {
     this.responseHandler = response;
-    var query = "SELECT * FROM products INNER JOIN stores ON stores_id = stores.id AND stores.link = '"+storeurl+"' INNER JOIN category ON category.id = category_id";
+    var query = "SELECT * FROM stores LEFT JOIN products ON stores_id = stores.id LEFT JOIN category ON category.id = category_id WHERE stores.link = '"+storeurl+"'";
     this.executeQuery(query);
   }
 
@@ -125,7 +125,7 @@ var DBController = function() {
       if(!startFlag) {
         query += ' AND ';
       }
-      query += key +" = '"+whereClause[key]+"'";
+      query += key +" = " + mysql.escape(whereClause[key]);
       startFlag = false;
     }
     this.executeQuery(query);

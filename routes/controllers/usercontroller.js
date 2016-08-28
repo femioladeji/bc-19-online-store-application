@@ -1,15 +1,15 @@
 var DBController = require('./dbcontroller')
 const crypto = require('crypto');
 
-function hash(rawstring) {
-  var salt = crypto.randomBytes(16).toString('hex');
-  var encrypted = crypto.pbkdf2Sync(rawstring, salt, 1000, 32, 'sha512').toString('hex');
-  return [salt, encrypted];
-}
+/*function to generate salt and encypted password using crypto*/
+
 
 var db = new DBController();
 
 var UserController = function() {
+  /*
+    controller function for user login
+  */
   this.login = function(req, res) {
     var data = req.body;
     details = {'email':data.email, 'password':data.password};
@@ -30,7 +30,7 @@ var UserController = function() {
 
   this.updateUser = function(req, res) {
     details = req.body;
-    var passwordArray = hash(details.password);
+    var passwordArray = this.hash(details.password);
     details.password = passwordArray[1];
     details.salt = passwordArray[0];
     delete details['confirmpassword'];
@@ -41,6 +41,12 @@ var UserController = function() {
     var userid = req.params.userid;
     db.responseHandler = res;
     db.getDashboardInfo(userid);
+  }
+
+  this.hash = function(rawstring) {
+    var salt = crypto.randomBytes(16).toString('hex');
+    var encrypted = crypto.pbkdf2Sync(rawstring, salt, 1000, 32, 'sha512').toString('hex');
+    return [salt, encrypted];
   }
 }
 
