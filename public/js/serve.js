@@ -8,8 +8,8 @@ $(document).ready(function() {
 
   myGlobal.renderPage('/dashboard');
 
-  $('a:not("#logout")').click(function(event) {
-    event.preventDefault();
+  $('a').not("#logout, .storepage").click(function(e) {
+    e.preventDefault();
     myGlobal.renderPage($(this).attr('href'));
   });
 
@@ -19,8 +19,8 @@ $(document).ready(function() {
     window.location.href = '/';
   })
 
-  $('#page-inner').delegate('a', 'click', function(e) {
-    event.preventDefault();
+  $('#page-inner').delegate('a:not(.storepage)', 'click', function(e) {
+    e.preventDefault();
     myGlobal.renderPage($(this).attr('href'));
   });
 
