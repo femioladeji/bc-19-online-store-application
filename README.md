@@ -2,20 +2,35 @@
 
 [![Code Climate](https://codeclimate.com/github/femidotexe/bc-19-online-store-application/badges/gpa.svg)](https://codeclimate.com/github/femidotexe/bc-19-online-store-application)
 
-**Andela Bootcamp project**
+## **About**
+Online store application is a full stack application that is used to market your store and the products you sell. You can manage multiple stores and assign products to those stores
 
-**An Online store application with the following functionality**
+## **Functionality**
 
-1. As a user I should be able to signup / login
-2. As a user I should be able to create a store
-3. As a store owner, I should be able to add products
-4. Every store created on the platform should have a shareable public URL
+1. As user can signup / login
+2. A user can create stores and edit created stores
+3. Store owners can add products to store
+4. Stores created on the platform will have a shareable public URL that visitors can access
 
-**How to use**
+## **Dependencies**
+The application solely depends on
+* [Node js] (https://nodejs.org/en/) Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine
+
+## **How to use**
 
 1. Clone the repository
-2. Run npm install
-3. Import the database sql file onlinestore.sql in the root directory
-4. Open the .env file and replace it with the appropriate database parameters
-5. Start the app by running npm start
-6. Visit the url on your browser
+```
+git clone https://github.com/femidotexe/bc-19-online-store-application.git
+```
+2. Change directory to the cloned directory
+3. Run npm install
+```
+npm install
+```
+4. Import the database sql file onlinestore.sql in the root directory to your sql database
+5. Open the .env file and replace it with the appropriate database parameters
+6. Start the app by running npm start
+```
+npm start
+```
+7. Visit the url on your browser
