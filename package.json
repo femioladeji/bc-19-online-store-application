@@ -1,0 +1,45 @@
+{
+  "name": "onlinestoreapplication",
+  "version": "1.0.0",
+  "description": "Andela Bootcamp project by Oladeji Femi. The project is an online store application that will allow users to create stores and create products",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc mocha",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/femidotexe/bc-19-online-store-application.git"
+  },
+  "keywords": [
+    "Andela",
+    "store",
+    "online",
+    "bootcamp",
+    "node",
+    "mysql",
+    "express",
+    "jquery"
+  ],
+  "author": "Oladeji Femi (femidotexe)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/femidotexe/bc-19-online-store-application/issues"
+  },
+  "homepage": "https://github.com/femidotexe/bc-19-online-store-application#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "crypto": "0.0.3",
+    "dotenv": "^2.0.0",
+    "ejs": "^2.5.1",
+    "express": "^4.14.0",
+    "jsonwebtoken": "^7.1.9",
+    "multer": "^1.2.0",
+    "node-mysql": "^0.4.2",
+    "nodemailer": "^2.5.0",
+    "nyc": "^8.1.0",
+    "request": "^2.74.0"
+  }
+}

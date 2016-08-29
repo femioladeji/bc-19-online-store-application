@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Online Store App</title>
+
+        <!-- stylesheet start section -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" />
+        <link href="css/custom.css" rel="stylesheet" />
+        <!-- stylesheet end section -->
+    </head>
+
+    <body>
+        <!-- <img id="bg_image" src="images/home_img.jpg" /> -->
+        <div class="container">
+            <div class="row" style="margin-top:10px;">
+                <div class="col-md-12">
+                    <span style="font-size:20px"><%= shopname %></span>
+                    <span class="pull-right" style="font-size:12px;">Powered by <img width="100"  src="images/logo.png" /></span>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-12" style="background-image:url(images/banner.png); color:#fff; padding-top:50px; padding-bottom:50px;">
+                    <p class="text-center" style="font-size:18px;"><%= description %></p><br/>
+                    <p class="text-center"><%= address %><br/><%= contact %></p>
+                </div>
+            </div>
+
+            <br/><br/>
+
+            <div class="row">
+                <% products.forEach(function(aproduct){ %>
+                    <div class="col-md-3 col-sm-4 col-xs-10 col-xs-offset-1 eachproduct">
+                        <br/><span class="bg-primary" style="padding:5px;"><%= aproduct.category_name %></span><br/><br/>
+                        <div class="productimage">
+                            <img style="width:100%" src="images/productimages/<%= aproduct.product_image %>" />
+                        </div>
+                        <hr>
+                        <p class="text-center" style="font-size:18px;"><%= aproduct.product_name %></p>
+                        <p class="text-center" style="color:#f00">₦<%= aproduct.price %></p>
+                        <hr>
+                        <p class="text-center"><%= aproduct.product_desc %></p>
+                    </div>
+                <% }); %>
+                
+            </div>
+            <div class="clearfix"></div><br/>
+            <div class="row" style="margin-top:20px;">
+                <div class="col-md-12">
+                    <p class="text-center">Created with love by Femi Oladeji | Andela Bootcamp programme</p>
+                </div>
+            </div>
+        </div>
+        <!-- javascript section start -->
+        <script src="js/jquery-2.2.3.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/global.js"></script>
+        <script src="js/index.js"></script>
+        <!-- javascript section end -->
+    </body>
+</html>

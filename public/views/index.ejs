@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Online Store App</title>
+
+        <!-- stylesheet start section -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" />
+        <link href="css/custom.css" rel="stylesheet" />
+        <!-- stylesheet end section -->
+        <script type="text/javascript">
+        if(window.localStorage.getItem('token')) {
+            window.location.href = '/home?q='+window.localStorage.getItem('token');
+        }
+        </script>
+    </head>
+
+    <body>
+        <!-- <img id="bg_image" src="images/home_img.jpg" /> -->
+        <div class="container">
+            <div class="row" style="margin-top:50px;">
+                <img src="images/logo.png" />
+            </div>
+            <div class="clearfix"></div>
+            <div class="row" style="margin-top:50px">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <h2 id="name">Andel-Stores</h2><br/><br/>
+                    <p id="home_description">The perfect store<br/>Platform for your<br/>Business</p>
+                    <br/><br/><br/>
+                    Create your perfect store seamlessly
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-hide">
+                    <img src="images/home_image.png" style="width:100%;" />
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12" id="flip-form">
+                    <div class="flipper">
+                        <div class="form-wrapper front">
+                            <h3>Sign in</h3><br/>
+                            <form>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" id="email" placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" id="password" placeholder="Password">
+                                </div>
+                                <div class="progress"><img width="40" src="images/loader_black.gif"/></div><br/>
+                                <button class="btn btn-primary btn-block btn-lg action" id="signin">Sign in</button>
+                            </form>
+                            <br/><br/>
+                            <p class="text-center message" style="color:#fff"></p><br/><br/><br/>
+                            <p class="text-center">Are you a new user? <a href="#" class="switch">sign up</a></p>
+                        </div>
+                        <div class="form-wrapper back">
+                            <h3>Registration</h3><br/>
+                            <form>
+                                <div class="form-group">
+                                    <input type="fullname" class="form-control" id="fullname" placeholder="Fullname">
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" id="regemail" placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" id="regpassword" placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" id="confirmpassword" placeholder="Confirm Password">
+                                </div>
+                                <div class="progress"><img width="40" src="images/loader_black.gif"/></div><br/>
+                                <button id="register" class="btn btn-primary btn-block btn-lg action" id="register">Register</button>
+                            </form>
+                            <br/>
+
+                            <p class="text-center message" style="color:#fff"></p><br/>
+                            <p class="text-center">Do you have an account? <a href="#" class="switch">sign in</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/><br clear="both" />
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="text-center">Created with love by Femi Oladeji | Andela Bootcamp programme</p>
+                </div>
+            </div>
+        </div>
+        <!-- javascript section start -->
+        <script src="js/jquery-2.2.3.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/global.js"></script>
+        <script src="js/index.js"></script>
+        <!-- javascript section end -->
+    </body>
+</html>

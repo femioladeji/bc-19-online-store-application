@@ -1,0 +1,75 @@
+<link rel="canonical" href="https://dev.twitter.com/web/tweet-button">
+<div class="row">
+  <div class="col-md-12">
+    <h2>Store Management</h2>   
+  </div>
+</div>
+<hr />
+
+<button class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#storemodal" id="createstoremodal">CREATE STORE</button>
+<h4>MY STORES</h4>
+<div class="clearfix"></div>
+<br/>
+<div class="table-responsive">
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <td>NAME</td>
+        <td>ADDRESS</td>
+        <td>DESCRIPTION</td>
+        <td>CONTACT</td>
+        <td>URL</td>
+        <td>VIEW</td>
+        <td>EDIT</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% storelist.forEach(function(eachstore) { %>
+        <tr>
+          <td><%= eachstore.storename %></td>
+          <td><%= eachstore.address %></td>
+          <td><%= eachstore.description %></td>
+          <td><%= eachstore.contact %></td>
+          <td><a class="storepage" href="https://twitter.com/intent/tweet?text=View store details for%20<%= eachstore.storename %>&url=http://127.0.0.1:3000/productstore?link=<%= eachstore.link %>&via=femidotexe" target="_blank" class="twitter-share-button"><i class="fa fa-twitter"></i>Share url</a></td><td><a class="storepage" href="http://127.0.0.1:3000/productstore?link=<%= eachstore.link %>" target="_blank">Store Page</a></td>
+          <td><button class="btn btn-primary editstore" data-toggle="modal" data-target="#storemodal" id="<%= eachstore.id %>">Edit</button></td></tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+<div class="modal fade" id="storemodal" role="dialog" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Create Store</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="storename">Store Name</label>
+            <input type="text" class="form-control" id="storename">
+          </div>
+          <div class="form-group">
+            <label for="contact">Contact Phone</label>
+            <input type="text" class="form-control" id="contact">
+          </div>
+          <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" id="address">
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" style="height:100px; resize:none;" class="form-control"></textarea>
+          </div>
+          <p class="message"></p>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <div class="progress pull-left"><img width="40" src="images/loader_black.gif"/></div>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary action create" id="createstore">Create Store</button>
+        <button type="button" class="btn btn-primary action edit" storeid="" id="editstore">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

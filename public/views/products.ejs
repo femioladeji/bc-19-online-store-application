@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-md-12">
+    <h2>Products</h2>   
+  </div>
+</div>
+<hr />
+
+<button class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#productmodal" id="createproductmodal">CREATE PRODUCT</button>
+<h4>MY PRODUCTS</h4>
+<div class="clearfix"></div>
+<br/>
+<div class="table-responsive">
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <td>NAME</td>
+        <td>STORE</td>
+        <td>DESCRIPTION</td>
+        <td>PRICE(₦)</td>
+        <td>CATEGORY</td>
+        <td>EDIT</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% productlist.forEach(function(eachproduct) { %>
+        <tr>
+          <td><%= eachproduct.product_name %></td>
+          <td><%= eachproduct.storename %></td>
+          <td><%= eachproduct.product_desc %></td>
+          <td><%= eachproduct.price %></td>
+          <td><%= eachproduct.category_name %></td>
+          <td><button class="btn btn-primary editproduct" data-toggle="modal" data-target="#productmodal" id="<%= eachproduct.productid %>">Edit</button></td></tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+<div class="modal fade" id="productmodal" role="dialog" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Create Products</h4>
+      </div>
+      <div class="modal-body">
+        <form action="/api/product" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="product_name">Product Name</label>
+            <input type="text" class="form-control" id="product_name" name="product_name">
+          </div>
+          <div class="form-group">
+            <label for="product_desc">Description</label>
+            <textarea id="product_desc" style="height:100px; resize:none;" class="form-control"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="price">Price(₦)</label>
+            <input type="number" class="form-control" id="price" name="price">
+          </div>
+          <div class="form-group">
+            <label for="stores_id">Store</label>
+            <select class="form-control" id="stores_id" name="stores_id">
+              <option value="">--Select Store--</option>
+              <% storeList.forEach(function(aStore){ %>
+                <option value="<%= aStore.id %>"><%= aStore.storename %></option>
+              <%  }) %>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="category_id">Product Category</label>
+            <select class="form-control" id="category_id" name="category_id">
+              <option value="">--Select Category--</option>
+              <% categoryList.forEach(function(aCategory){ %>
+                <option value="<%= aCategory.id %>"><%= aCategory.category_name %></option>
+              <%  }) %>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="productimage">Product Image</label>
+            <input type="file" class="form-control" id="productimage" name="productimage">
+          </div>
+          <p class="message"></p>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <div class="progress pull-left"><img width="40" src="images/loader_black.gif"/></div>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary action create" id="createproduct">Create Product</button>
+        <button type="button" class="btn btn-primary action edit" productid="" id="editproduct">Edit Product</button>
+      </div>
+    </div>
+  </div>
+</div>

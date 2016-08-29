@@ -1,0 +1,103 @@
+
+body{
+    padding:0;
+    margin:0;
+    background: #f3f3f3;
+}
+#home_description{
+    font-style: italic;
+    border-left: 5px solid #000;
+    padding-left:10px;
+    line-height: 50px;
+    font-weight: bold;
+    font-size: 30px;
+}
+#name{
+    font-size: 50px;
+    font-weight: bold;
+}
+.form-wrapper{
+    perspective: 1000px;
+    background: #fff;
+    border:1px solid #ccc;
+    min-height:400px;
+    border-radius: 5px;
+    padding:5%;
+}
+.message{
+    text-align: center;
+}
+#flip-form{
+  
+}
+/*#flip-form:hover .flipper, .flip-container.hover .flipper {
+    transform: rotateY(180deg);
+}*/
+.flipper {
+  transition: 0.6s;
+  transform-style: preserve-3d;
+
+  position: relative;
+}
+.front, .back {
+  backface-visibility: hidden;
+  position: absolute;
+  width:100%;
+  top: 0;
+  left: 0;
+}
+.front {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+  transform: rotateY(180deg);
+}
+.progress{
+  width:40px;
+  margin:auto;
+  display: none;
+  height:40px;
+  background:#fff;
+}
+.eachproduct{
+  border-radius:5px;
+  max-height: 420px;
+  overflow: hidden;
+  margin-bottom: 20px !important;
+  background:#fff
+}
+.productimage{
+  height:200px;
+  overflow:hidden;
+  margin:auto
+}
+.eachproduct:hover{
+  box-shadow: 0px 1px 7px 2px rgba(0,0,0,0.08)
+}
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+.eachproduct{
+  width:90%;
+  margin:0 5%;
+}
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+  .eachproduct{
+    width:32%;
+    margin:0 1%;
+  }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+  .eachproduct{
+    width:23%;
+    margin:0 1%;
+  }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+
