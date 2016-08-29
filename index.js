@@ -5,6 +5,9 @@ var path = require('path');
 var bodyParser = require('body-parser');
 
 var app = express();
+
+var port = process.env.PORT || 3000;
+
 //for serving static css and js files
 app.use(express.static(path.join(__dirname, '/public')));
 
@@ -20,7 +23,7 @@ app.set('view engine', 'ejs');
 
 
 //start server
-app.listen(3000, function() {
+app.listen(port, function() {
   console.log('App is ready to be accessed on http://localhost:3000');
 });
 
